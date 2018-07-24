@@ -6,18 +6,22 @@ import Sequence from './sequence'
 export default class Sequencer extends Component {
 
     state = {
-        beat: [1, 2, 3, 4, 5, 6, 7, 8],
-        highHat: [false, false, false, false, false, false, false, false],
-        snare: [false, false, false, false, false, false, false, false],
-        bassDrum: [false, false, false, false, false, false, false, false],
-        tom: [false, false, false, false, false, false, false, false],
-        crash: [false, false, false, false, false, false, false, false],
-        ride: [false, false, false, false, false, false, false, false],
+        beat: [],
+        highHat: [],
+        snare: [],
+        bassDrum: [],
+        tom: [],
+        crash: [],
+        ride: [],
         buttonText: "Play",
         interval: "",
         i: 0,
         bpm: 120,
         beats: 8
+    }
+
+    componentDidMount(){
+        this.setBeats()
     }
 
     buttonFunctionToggle = function () {
@@ -93,19 +97,17 @@ export default class Sequencer extends Component {
         const parentIdSplit = item.parentNode.id.split('_')
         const stateItem = parentIdSplit[0]
         const index = parentIdSplit[1]
-        // console.log(window[stateItem+'Key'])
-        // window[stateItem+'Key'] = 0
         if (item.checked === true) {
             let array = this.state[stateItem]
             array[index] = true
             this.setState({
-                stateItem: array
+                [stateItem]: array
             })
         } else {
             let array = this.state[stateItem]
             array[index] = false
             this.setState({
-                stateItem: array
+               [stateItem]: array
             })
         }
     }.bind(this)
@@ -153,15 +155,11 @@ export default class Sequencer extends Component {
         return (
 
             <div id="sequencer">
-                {/* <audio id= src="sounds/clap.wav"></audio> */}
                 <audio id="audio_highHat" src="./sounds/hihat.wav" />
                 <audio id="audio_bassDrum" src="sounds/kick.wav"></audio>
-                {/* <audio id= src="sounds/openhat.wav"></audio> */}
-                {/* <audio id= src="sounds/boom.wav"></audio> */}
                 <audio id="audio_ride" src="sounds/ride.wav"></audio>
                 <audio id="audio_snare" src="sounds/Acoustic_Snare-01.wav"></audio>
                 <audio id="audio_tom" src="sounds/tom.wav"></audio>
-                {/* <audio id= src="sounds/tink.wav"></audio> */}
                 <div id="beat">
                     <h6></h6>
                     {this.state.beat.map(beat => {
