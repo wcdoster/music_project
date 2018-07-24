@@ -9,7 +9,7 @@ export default class Sequencer extends Component {
         beat: [],
         highHat: [],
         snare: [],
-        bassDrum: [],
+        kick: [],
         tom: [],
         crash: [],
         ride: [],
@@ -53,7 +53,7 @@ export default class Sequencer extends Component {
             stateItems.forEach(item => {
                 if (this.state[item][i] === true) {
                     const audio = new Audio(audioFiles[item])
-                    audio.play()
+                    // audio.play()
                     // console.log(audio)
                     console.log(audio)
                 }
@@ -70,14 +70,16 @@ export default class Sequencer extends Component {
     }
 
     play = function () {
+        document.getElementById("bpm").disabled = true
+        document.getElementById("beats").disabled = true
         this.setState({
             buttonText: "Stop"
         })
-        const stateItems = ["highHat", "snare", "bassDrum", "tom", "crash", "ride"]
+        const stateItems = ["highHat", "snare", "kick", "tom", "crash", "ride"]
         const audioFiles = {
             "highHat": './sounds/hihat.wav',
             "snare": 'sounds/Acoustic_Snare-01.wav.wav',
-            "bassDrum": './sounds/kick.wav',
+            "kick": './sounds/kick.wav',
             "tom": './sounds/tom.wav',
             "ride": './sounds/ride.wav'
         }
@@ -85,6 +87,8 @@ export default class Sequencer extends Component {
     }.bind(this)
 
     stop = function () {
+        document.getElementById("bpm").disabled = false
+        document.getElementById("beats").disabled = false
         clearInterval(this.state.interval)
         document.getElementById(`dot_${this.state.i}`).textContent = ''
         this.setState({
@@ -130,7 +134,7 @@ export default class Sequencer extends Component {
             beats: parseInt(beats),
             beat: beatArray
         })
-        const stateItems = ["highHat", "snare", "bassDrum", "tom", "crash", "ride"]
+        const stateItems = ["highHat", "snare", "kick", "tom", "crash", "ride"]
         for (let item in this.state) {
             if (stateItems.indexOf(item) > -1) {
                 let newArray = this.state[item].slice()
@@ -156,7 +160,7 @@ export default class Sequencer extends Component {
 
             <div id="sequencer">
                 <audio id="audio_highHat" src="./sounds/hihat.wav" />
-                <audio id="audio_bassDrum" src="sounds/kick.wav"></audio>
+                <audio id="audio_kick" src="sounds/kick.wav"></audio>
                 <audio id="audio_ride" src="sounds/ride.wav"></audio>
                 <audio id="audio_snare" src="sounds/Acoustic_Snare-01.wav"></audio>
                 <audio id="audio_tom" src="sounds/tom.wav"></audio>
@@ -178,7 +182,7 @@ export default class Sequencer extends Component {
                 </div>
                 <Sequence state={this.state.highHat} instrument="highHat" title="High Hat" radioClick={this.radioClick} />
                 <Sequence state={this.state.snare} instrument="snare" title="Snare" radioClick={this.radioClick} />
-                <Sequence state={this.state.bassDrum} instrument="bassDrum" title="Bass Drum" radioClick={this.radioClick} />
+                <Sequence state={this.state.kick} instrument="kick" title="Kick" radioClick={this.radioClick} />
                 <Sequence state={this.state.tom} instrument="tom" title="Tom" radioClick={this.radioClick} />
                 <Sequence state={this.state.crash} instrument="crash" title="Crash" radioClick={this.radioClick} />
                 <Sequence state={this.state.ride} instrument="ride" title="Ride" radioClick={this.radioClick} />
