@@ -1,0 +1,29 @@
+
+#sequencer > div{
+    height: 20px;
+}
+
+#sequencer > div > div,
+#sequencer > div > p{
+    display: inline-block;
+    width: 20px;
+    padding-left: 10px;
+    text-align: center;
+    margin: 0;
+}
+
+#sequencer > div > h6 {
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+    margin: 0;
+}
+
+#dot > p{
+    color: red;
+    font-weight: bolder
+}
+
+.not{
+    display: none;
+}
